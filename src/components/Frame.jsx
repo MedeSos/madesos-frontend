@@ -12,11 +12,12 @@ export function BoxContainer({ children }) {
   return <div className="box-container">{children}</div>;
 }
 
-export function ContentBody({ header, main }) {
+export function ContentBody({ header, main, footer = null }) {
   return (
     <div className="content-body h-full relative">
       {header}
       {main}
+      {footer}
     </div>
   );
 }

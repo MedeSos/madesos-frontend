@@ -4,10 +4,9 @@ import MainDashboardBody from "./MainDashboardBody";
 export default function UpdateProfile() {
   return (
     <>
-      <MainDashboardBody headerStatus={true}>
+      <MainDashboardBody headerStatus={true} footer={<AddPost />}>
         <Profile changes={true} />
         <EditProfile />
-        <AddPost />
       </MainDashboardBody>
     </>
   );
