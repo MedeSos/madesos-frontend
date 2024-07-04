@@ -98,19 +98,9 @@ export function ProfileDescription() {
 }
 
 export function PostCategory({ setCategory, Category }) {
+  let defaultCategory = Category;
   function HandleActive(e) {
-    let postIcons = document.querySelectorAll(".post-icon");
     let postClick = e.target;
-
-    postIcons.forEach(postIcon => {
-      postIcon.classList.remove("post-category-active");
-      postIcon.classList.add("px-7");
-    });
-
-    if (postClick.classList.contains("post-icon")) {
-      postClick.classList.remove("px-7");
-      postClick.classList.add("post-category-active");
-    }
 
     if (postClick.hasAttribute("title")) {
       setCategory(postClick.getAttribute("title"));
@@ -120,9 +110,9 @@ export function PostCategory({ setCategory, Category }) {
     <>
       {/* <!-- post category --> */}
       <div className="flex flex-row my-5 bg-secondary w-2/3 mx-auto rounded-full items-center justify-between">
-        <img src="./../src/assets/icons/image.svg" alt="image icon" className={`post-icon cursor-pointer py-2 post-category-active`} onClick={HandleActive} title="image" />
-        <img src="./../src/assets/icons/video.svg" alt="video icon" className={`post-icon cursor-pointer py-2 px-7`} onClick={HandleActive} title="video" />
-        <img src="./../src/assets/icons/blog.svg" alt="blog icon" className={`post-icon cursor-pointer py-2 px-7 `} onClick={HandleActive} title="blog" />
+        <img src="./../src/assets/icons/image.svg" alt="image icon" className={`post-icon cursor-pointer py-2 ${defaultCategory === "image" ? "post-category-active" : "px-7"}`} onClick={HandleActive} title="image" />
+        <img src="./../src/assets/icons/video.svg" alt="video icon" className={`post-icon cursor-pointer py-2  ${defaultCategory === "video" ? "post-category-active" : "px-7"}`} onClick={HandleActive} title="video" />
+        <img src="./../src/assets/icons/blog.svg" alt="blog icon" className={`post-icon cursor-pointer py-2  ${defaultCategory === "blog" ? "post-category-active" : "px-7"} `} onClick={HandleActive} title="blog" />
       </div>
       {/* <!-- post category end  --> */}
     </>
