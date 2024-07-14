@@ -3,12 +3,12 @@ import Home from "../pages/Home";
 import LoginPage from "./../pages/LoginPage";
 import RegisterPage from "./../pages/RegisterPage";
 import PostType from "./../pages/PostType";
-import UpdatePage from "./../pages/UpdatePage";
 import UpdatePost from "../components/UpdatePost";
 import UpdatePostUpload from "./../components/UpdatePostUpload";
 import SingleBlog from "./../components/SingleBlog";
 import SingleVideo from "./../components/SingleVideo";
 import SingleImage from "./../components/SingleImage";
+import ProfilePages from "../components/ProfilePage";
 import UpdateProfile from "./../components/UpdateProfile";
 import ErrorPage from "./../pages/ErrorPage";
 
@@ -37,6 +37,10 @@ export const routes = createBrowserRouter([
   {
     path: "/update/image",
     element: <UpdatePostUpload />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePages />,
   },
   {
     path: "/update/profile",
