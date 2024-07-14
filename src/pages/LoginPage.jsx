@@ -15,7 +15,7 @@ function Login() {
     <>
       <div className="content">
         <div className="logo">
-          <p className="text-5xl font-bold">Logo Here</p>
+          <p className="text-5xl font-bold">Ini logo</p>
         </div>
         <h4 className="text-4xl font-semibold my-5">Login</h4>
         <form className="flex flex-col w-3/4">
