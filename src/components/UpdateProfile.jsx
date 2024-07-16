@@ -11,7 +11,7 @@ export default function UpdateProfile() {
     </>
   );
 }
-function EditProfile() {
+export function EditProfile() {
   return (
     <>
       {/* <!-- post upload box --> */}
