@@ -5,11 +5,8 @@ import RegisterPage from "./../pages/RegisterPage";
 import PostType from "./../pages/PostType";
 import UpdatePost from "../components/UpdatePost";
 import UpdatePostUpload from "./../components/UpdatePostUpload";
-import SingleBlog from "./../components/SingleBlog";
-import SingleVideo from "./../components/SingleVideo";
-import SingleImage from "./../components/SingleImage";
-import ErrorPage from "./../pages/ErrorPage";
 import ProfilePages from "../components/ProfilePage";
+import ErrorPage from "./../pages/ErrorPage";
 
 export const routes = createBrowserRouter([
   {
@@ -30,27 +27,15 @@ export const routes = createBrowserRouter([
     element: <PostType />,
   },
   {
+    path: "/profile",
+    element: <ProfilePages />,
+  },
+  {
     path: "/update/blog",
     element: <UpdatePost />,
   },
   {
     path: "/update/image",
     element: <UpdatePostUpload />,
-  },
-  {
-    path: "/profile",
-    element: <ProfilePages />,
-  },
-  {
-    path: "/blog/image",
-    element: <SingleImage />,
-  },
-  {
-    path: "/blog/video",
-    element: <SingleVideo />,
-  },
-  {
-    path: "/blog/post",
-    element: <SingleBlog />,
   },
 ]);

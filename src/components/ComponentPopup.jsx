@@ -3,35 +3,46 @@ import PropTypes from "prop-types";
 
 const ComponentPopup = props => {
   const [show, setShow] = useState(false);
-  const closeHandler = () => {
-    setShow(false);
-    props.onClose(false);
+  const [visibility, setVisibility] = useState("invisible opacity-0");
+  const closeHandler = e => {
+    if (e.target.dataset.svOverlay === "true" || e.target.dataset.svClose === "true") {
+      setShow(false);
+      props.onClose(false);
+    }
   };
 
   useEffect(() => {
     setShow(props.show);
+    setVisibility(props.show ? "visible opacity-100" : "invisible opacity-0");
   }, [props.show]);
 
   return (
-    <div
-      style={{
-        visibility: show ? "visible" : "hidden",
-        opacity: show ? "1" : "0",
-      }}
-      className="invisible opacity-0 fixed inset-y-0 inset-x-0 bg-black/70 transition-[opacity_500ms] z-30 overflow-auto">
-      <div className="m-[70px_auto] p-5 bg-[#fff] rounded-md w-[30%] relative transition duration-5000 ease-in-out">
-        <h2 className="mt-0 text-[#333] ">{props.title}</h2>
-        <span onClick={closeHandler} className="absolute top-5 right-8 transition duration-200 text-3xl font-bold no-underline text-[#333] cursor-pointer text-black">
-          &times;
-        </span>
-        <div className="max-h-[30%] overflow-auto">{props.children}</div>
-      </div>
-    </div>
+    <>
+      {show && (
+        <>
+          <div onClick={closeHandler} className={`${visibility} fixed inset-0 transition-[opacity_500ms] z-30 overflow-auto`} data-sv-overlay="true">
+            <div className="m-[70px_auto] p-5 bg-white rounded-md transition duration-5000 ease-in-out w-[533px] max-h-[1000px] relative">
+              {/* <!-- header --> */}
+              <section className="absolute top-0 right-0 left-0 h-16 flex justify-between items-center">
+                <h2 className="mt-0 text-[#333] p-4">{props.title}</h2>
+                <span onClick={closeHandler} className="p-4 transition duration-200 text-3xl font-bold no-underline text-[#333] cursor-pointer z-30" data-sv-close="true">
+                  &times;
+                </span>
+              </section>
+              {/* body  */}
+              <section className="mt-11">
+                <div className="relative overflow-auto max-h-[900px]">{props.children}</div>
+              </section>
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 };
 
 ComponentPopup.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
