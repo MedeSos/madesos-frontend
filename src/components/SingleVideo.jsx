@@ -1,19 +1,19 @@
-import SinglePost from "./SinglePost";
+import { ModalPopup } from "./SinglePost";
 
 export default function SingleVideo({ rounded = "" }) {
   return (
     <>
-      <SinglePost padding={"py-32 px-12"}>
+      <ModalPopup>
         <div className={`flex flex-col shadow-trick overflow-hidden ${rounded}`}>
           {/* <div className="bg-neutral-300 h-1/2 bg-[url(https://picsum.photos/200)] bg-cover bg-center"></div> */}
-          <div className="bg-slate-600 h-1/2 flex items-center">
+          <div className="bg-slate-600 min-h-[300px] flex items-center">
             {/* <!-- <iframe class="w-full aspect-video" src="./../asset/video/demo.mp4"></iframe> --> */}
             <video controls muted className="w-full">
               <source src="./../asset/video/demo.mp4" type="video/mp4" />
             </video>
           </div>
 
-          <div className="p-6 bg-secondary h-1/2 overflow-y-hidden relative">
+          <div className="p-6 bg-secondary min-h-1/2 relative">
             <div className="p-4 bg-white text-xs font-[275]">
               <small className="text-xs font-extralight">15-12-2024</small>
               <h1 className="text-xl font-semibold mb-1">Post Title Here</h1>
@@ -29,7 +29,7 @@ export default function SingleVideo({ rounded = "" }) {
             </div>
           </div>
         </div>
-      </SinglePost>
+      </ModalPopup>
     </>
   );
 }

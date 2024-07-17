@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SinglePost from "./SinglePost";
+import { ModalPopup } from "./SinglePost";
 
 export default function SingleBlog({ rounded = "" }) {
   const [readMore, setReadMore] = useState("overflow-y-hidden");
@@ -13,8 +13,8 @@ export default function SingleBlog({ rounded = "" }) {
 
   return (
     <>
-      <SinglePost padding={"p-8"}>
-        <div className={`flex flex-col shadow-trick ${rounded} overflow-hidden`}>
+      <ModalPopup>
+        <div className={`flex flex-col shadow-trick overflow-hidden ${rounded}`}>
           <div className="bg-neutral-300 h-44 bg-[url(https://picsum.photos/200)] bg-cover bg-center"></div>
           {/* <!-- <div className="post-body p-5 bg-secondary grow overflow-y-auto relative"> --> */}
           <div className={`post-body p-5 bg-secondary grow ${readMore} relative`}>
@@ -52,7 +52,7 @@ export default function SingleBlog({ rounded = "" }) {
             {/* <!-- read more end  --> */}
           </div>
         </div>
-      </SinglePost>
+      </ModalPopup>
     </>
   );
 }
