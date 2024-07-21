@@ -23,7 +23,7 @@ function Register() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/v1/auth/register",
+        `${import.meta.env.VITE_API_URL}/v1/auth/register`,
         {
           email: email,
           password: password,
