@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 import LoginPage from "./../pages/LoginPage";
 import RegisterPage from "./../pages/RegisterPage";
@@ -8,10 +8,24 @@ import UpdatePostUpload from "./../components/UpdatePostUpload";
 import ProfilePages from "../components/ProfilePage";
 import ErrorPage from "./../pages/ErrorPage";
 
+function isAuthenticated() {
+  const token = localStorage.getItem("token");
+  return !!token;
+}
+
+function ProtectedRoute({ children }) {
+  const isAuth = isAuthenticated();
+  return isAuth ? children : <Navigate to={"/login"} replace />;
+}
+
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
