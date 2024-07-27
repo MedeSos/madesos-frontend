@@ -29,6 +29,7 @@ function Login() {
           password: password,
         }
       );
+      console.log(response.data._id);
       if (response.status >= 200 && response.status < 300) {
         localStorage.setItem("token", response.data.token);
         navigate("/");
