@@ -7,16 +7,7 @@ import UpdatePost from "../components/UpdatePost";
 import UpdatePostUpload from "./../components/UpdatePostUpload";
 import ProfilePages from "../components/ProfilePage";
 import ErrorPage from "./../pages/ErrorPage";
-
-function isAuthenticated() {
-  const token = localStorage.getItem("token");
-  return !!token;
-}
-
-function ProtectedRoute({ children }) {
-  const isAuth = isAuthenticated();
-  return isAuth ? children : <Navigate to={"/login"} replace />;
-}
+import {ProtectedRoute,AuthRoute} from './../components/ProtectedRoute';
 
 export const routes = createBrowserRouter([
   {
@@ -30,26 +21,26 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <AuthRoute><LoginPage /></AuthRoute>,
   },
   {
     path: "/register",
-    element: <RegisterPage />,
+    element: <AuthRoute><RegisterPage /></AuthRoute>,
   },
   {
     path: "/update",
-    element: <PostType />,
+    element:<ProtectedRoute><PostType /></ProtectedRoute> ,
   },
   {
     path: "/profile",
-    element: <ProfilePages />,
+    element:<ProtectedRoute><ProfilePages /></ProtectedRoute> ,
   },
   {
     path: "/update/blog",
-    element: <UpdatePost />,
+    element:<ProtectedRoute><UpdatePost /></ProtectedRoute> ,
   },
   {
     path: "/update/image",
-    element: <UpdatePostUpload />,
+    element:<ProtectedRoute><UpdatePostUpload /></ProtectedRoute> ,
   },
 ]);
