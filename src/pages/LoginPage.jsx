@@ -23,11 +23,8 @@ function Login() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/v1/auth/login`,
-        {
-          email: email,
-          password: password,
-        }
+        `/v1/auth/login`,
+        { email, password, }
       );
       console.log(response.data._id);
       if (response.status >= 200 && response.status < 300) {
