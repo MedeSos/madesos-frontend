@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { MainFrame } from "../components/Frame";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function LoginPage() {
   return (
@@ -11,6 +14,29 @@ export default function LoginPage() {
 }
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPasssword] = useState("");
+  const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
+
+  const Login = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `/v1/auth/login`,
+        { email, password, }
+      );
+      console.log(response.data._id);
+      if (response.status >= 200 && response.status < 300) {
+        localStorage.setItem("token", response.data.token);
+        navigate("/");
+      }
+    } catch (error) {
+      if (error.response) {
+        setMsg(error.response.data.message);
+      }
+    }
+  };
   return (
     <>
       <div className="content">
@@ -18,13 +44,19 @@ function Login() {
           <p className="text-5xl font-bold">Logo Here</p>
         </div>
         <h4 className="text-4xl font-semibold my-5">Login</h4>
-        <form className="flex flex-col w-3/4">
+    
+        <span>{msg.toLocaleUpperCase()}</span>
+        <form onSubmit={Login} className="flex flex-col w-3/4">
           <input
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             type="text"
             placeholder="Enter Email"
             className="w-full py-4 px-6 text-lg placeholder:text-slate-900  rounded mb-4 bg-[#FEEED9]"
           />
           <input
+            onChange={(e) => setPasssword(e.target.value)}
+            value={password}
             type="password"
             placeholder="Enter Password"
             className="w-full py-4 px-6 text-lg placeholder:text-slate-900  rounded mb-4 bg-[#FEEED9]"

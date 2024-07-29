@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 import LoginPage from "./../pages/LoginPage";
 import RegisterPage from "./../pages/RegisterPage";
@@ -7,35 +7,40 @@ import UpdatePost from "../components/UpdatePost";
 import UpdatePostUpload from "./../components/UpdatePostUpload";
 import ProfilePages from "../components/ProfilePage";
 import ErrorPage from "./../pages/ErrorPage";
+import {ProtectedRoute,AuthRoute} from './../components/ProtectedRoute';
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <AuthRoute><LoginPage /></AuthRoute>,
   },
   {
     path: "/register",
-    element: <RegisterPage />,
+    element: <AuthRoute><RegisterPage /></AuthRoute>,
   },
   {
     path: "/update",
-    element: <PostType />,
+    element:<ProtectedRoute><PostType /></ProtectedRoute> ,
   },
   {
     path: "/profile",
-    element: <ProfilePages />,
+    element:<ProtectedRoute><ProfilePages /></ProtectedRoute> ,
   },
   {
     path: "/update/blog",
-    element: <UpdatePost />,
+    element:<ProtectedRoute><UpdatePost /></ProtectedRoute> ,
   },
   {
     path: "/update/image",
-    element: <UpdatePostUpload />,
+    element:<ProtectedRoute><UpdatePostUpload /></ProtectedRoute> ,
   },
 ]);
