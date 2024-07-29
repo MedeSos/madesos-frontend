@@ -44,11 +44,8 @@ function Login() {
           <p className="text-5xl font-bold">Logo Here</p>
         </div>
         <h4 className="text-4xl font-semibold my-5">Login</h4>
-        <p>
-          <b>
-            <i>{msg.toLocaleUpperCase()}</i>
-          </b>
-        </p>
+    
+        <span>{msg.toLocaleUpperCase()}</span>
         <form onSubmit={Login} className="flex flex-col w-3/4">
           <input
             onChange={(e) => setEmail(e.target.value)}
@@ -74,14 +71,14 @@ function Login() {
           <hr className="w-1/2 bg-black" />
         </div>
         <a
-          href="./register"
+          href="/register"
           className="text-slate-900 rounded block text-center py-1 px-4 mx-auto border-4 border-[#87C4FF] w-3/4 font-semibold text-3xl tracking-widest"
         >
           FACEBOOK
         </a>
         <div className="flex flex-row gap-3 text-sm justify-center my-2">
           <a
-            href="./login.html"
+            href="/login"
             className="hover:text-primary-dark text-slate-900 mt-5 inline-block"
           >
             Forget Password? |
@@ -90,7 +87,7 @@ function Login() {
           <p>
             Need New Account?{" "}
             <a
-              href="./register"
+              href="/register"
               className="hover:text-primary-dark text-slate-900 mt-5 inline-block font-bold"
             >
               Sign Up
