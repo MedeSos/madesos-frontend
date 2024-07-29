@@ -23,11 +23,8 @@ function Register() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/v1/auth/register`,
-        {
-          email: email,
-          password: password,
-        }
+        `/v1/auth/register`,
+        { email, password, }
       );
       if (response.status >= 200 && response.status < 300) {
         navigate("/login");
