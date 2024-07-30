@@ -21,10 +21,10 @@ const ComponentPopup = props => {
       {show && (
         <>
           <div onClick={closeHandler} className={`${visibility} fixed inset-0 transition-[opacity_500ms] z-30 overflow-auto`} data-sv-overlay="true">
-            <div className="m-[70px_auto] p-5 bg-white rounded-md transition duration-5000 ease-in-out w-[533px] max-h-[1000px] relative">
+            <div className="m-[70px_auto] p-5 bg-white rounded-md transition duration-5000 ease-in-out w-[533px] max-h-[1000px] relative shadow-md">
               {/* <!-- header --> */}
               <section className="absolute top-0 right-0 left-0 h-16 flex justify-between items-center">
-                <h2 className="mt-0 text-[#333] p-4">{props.title}</h2>
+                <h2 className="ml-2 mt-0 text-[#333] p-4">{props.title}</h2>
                 <span onClick={closeHandler} className="p-4 transition duration-200 text-3xl font-bold no-underline text-[#333] cursor-pointer z-30" data-sv-close="true">
                   &times;
                 </span>
