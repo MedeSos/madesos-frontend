@@ -1,25 +1,33 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import ComponentPopup from "./ComponentPopup";
+import MainMenu from './MainMenu';
 
 export function Profile({ changes = false }) {
+  const [visiblity, setVisibility] = useState(false);
+
+  function popupCloseHandler(e) {
+    setVisibility(e);
+  }
   if (changes) {
     return <ProfileChange />;
   }
   return (
     <>
       {/* <!-- profile --> */}
-      <div className="flex flex-wrap items-center">
+      <div className="flex flex-wrap items-center relative">
         <div className="profile-image me-7 relative group bg-neutral-300 rounded-full border-4 border-white overflow-hidden">
-          <img
-            src="./../src/assets/icons/user.png"
-            alt=""
-            className="w-full h-full object-cover p-5"
-          />
+          <img src="./../src/assets/icons/user.png" alt="" className="w-full h-full object-cover p-5" />
         </div>
-        <div>
+        <div className="w-[55%] break-words">
           <p className="text-3xl font-semibold">Your Name</p>
           <p className="text-lg font-light">post title here</p>
         </div>
+        <img src="./../src/assets/icons/settings.svg" alt="setting icon" className="absolute top-4 right-0 cursor-pointer" onClick={() => setVisibility(!visiblity)} />
       </div>
+      <ComponentPopup onClose={popupCloseHandler} show={visiblity} title="Menu">
+        <MainMenu/>
+      </ComponentPopup>
       {/* <!-- end profile  --> */}
     </>
   );
@@ -31,24 +39,18 @@ export function ProfileChange() {
       <div className="flex flex-wrap items-center">
         <div className="profile-image me-7 relative group bg-neutral-300 rounded-full border-4 border-white overflow-hidden">
           {/* <!-- if image not exist --> */}
-          <img
-            src="./../src/assets/icons/images.svg"
-            alt=""
-            className="w-full h-full object-cover p-10"
-          />
+          <img src="./../src/assets/icons/images.svg" alt="" className="w-full h-full object-cover p-10" />
           {/* <!-- if image exist --> */}
           {/* <!-- <img src="./../asset/icons/yourprofile.png" alt="" class="w-full h-full object-cover"> --> */}
           <input type="file" id="profileImage" className="hidden" />
-          <label
-            htmlFor="profileImage"
-            className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center group-hover:bg-black group-hover:bg-opacity-50 h-full w-full"
-          >
-            <p className="hidden group-hover:block group-hover:text-white">
-              Change
-            </p>
+          <label htmlFor="profileImage" className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center group-hover:bg-black group-hover:bg-opacity-50 h-full w-full hover:cursor-pointer">
+            <p className="hidden group-hover:block group-hover:text-white">Change</p>
           </label>
         </div>
       </div>
+      <NavLink to="/" className="mt-3 underline block font-bold text-xl">
+        Back To Dashboard
+      </NavLink>
       {/* <!-- end profile  --> */}
     </>
   );
@@ -62,22 +64,13 @@ export function HeaderChange({ changes = false }) {
     <>
       <header className="profile-header bg-neutral-300 relative group">
         {/* <!-- if image not exist --> */}
-        <img
-          src="./../src/assets/icons/images.svg"
-          alt=""
-          className="w-full h-full p-10"
-        />
+        <img src="./../src/assets/icons/images.svg" alt="" className="w-full h-full p-10" />
         {/* <!-- if image exist --> */}
         {/* <img src="./../asset/icons/yourbanner.png" alt="" className="w-full h-full object-cover" /> */}
 
         <input type="file" id="bannerImage" className="hidden" />
-        <label
-          htmlFor="bannerImage"
-          className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center group-hover:bg-black group-hover:bg-opacity-50 h-full w-full"
-        >
-          <p className="hidden group-hover:block group-hover:text-white">
-            Change
-          </p>
+        <label htmlFor="bannerImage" className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center group-hover:bg-black group-hover:bg-opacity-50 h-full w-full  hover:cursor-pointer">
+          <p className="hidden group-hover:block group-hover:text-white">Change</p>
         </label>
       </header>
     </>
