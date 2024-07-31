@@ -8,6 +8,7 @@ import UpdatePostUpload from "./../components/UpdatePostUpload";
 import ProfilePages from "../components/ProfilePage";
 import ErrorPage from "./../pages/ErrorPage";
 import {ProtectedRoute,AuthRoute} from './../components/ProtectedRoute';
+import Logout from "../pages/Logout.js";
 
 export const routes = createBrowserRouter([
   {
@@ -42,5 +43,9 @@ export const routes = createBrowserRouter([
   {
     path: "/update/image",
     element:<ProtectedRoute><UpdatePostUpload /></ProtectedRoute> ,
+  },
+  {
+    path: "/logout",
+    element: <ProtectedRoute><Logout /></ProtectedRoute>,
   },
 ]);
