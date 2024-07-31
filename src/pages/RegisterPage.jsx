@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MainFrame } from "../components/Frame";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AlertMessage } from "../components/AlertMessage";
 
 export default function RegisterPage() {
   return (
@@ -16,7 +17,8 @@ export default function RegisterPage() {
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [msgError, setMsgError] = useState("");
+  const [msg, setMsg] = useState("");
+  const [status, setStatus] = useState(null);
   const navigate = useNavigate();
 
   const SignUp = async (e) => {
@@ -31,7 +33,8 @@ function Register() {
       }
     } catch (error) {
       if (error.response) {
-        setMsgError(error.response.data.message);
+        setMsg(error.response.data.message);
+        setStatus(false);
       }
     }
   };
@@ -43,7 +46,7 @@ function Register() {
           <p className="text-5xl font-bold">Logo Here</p>
         </div>
         <h4 className="text-4xl font-semibold my-5">Sign Up</h4>
-        <span>{msgError}</span>
+        {status !== null && <AlertMessage type={status}>{msg}</AlertMessage>}
         <form onSubmit={SignUp} className="flex flex-col w-3/4">
           <input
             required

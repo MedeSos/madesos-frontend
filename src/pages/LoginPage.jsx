@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { MainFrame } from "../components/Frame";
 import { useNavigate } from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
 import axios from "axios";
+import { AlertMessage } from '../components/AlertMessage';
 
 export default function LoginPage() {
   return (
@@ -17,6 +19,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPasssword] = useState("");
   const [msg, setMsg] = useState("");
+  const [status, setStatus] = useState(null);
   const navigate = useNavigate();
 
   const Login = async (e) => {
@@ -26,14 +29,28 @@ function Login() {
         `/v1/auth/login`,
         { email, password, }
       );
-      console.log(response.data._id);
       if (response.status >= 200 && response.status < 300) {
-        localStorage.setItem("token", response.data.token);
-        navigate("/");
+        let token = null;
+        if(!response.data.data.token){
+          setMsg("Invalid Credentials");
+          setStatus(false);
+          return
+        }
+        token = response.data.data.token;
+        const result = jwtDecode(token,"secret");
+        localStorage.setItem("token", token);
+        localStorage.setItem("exp",result.exp);
+        localStorage.setItem("id",result.id);
+        setMsg("Login Successfull");
+        setStatus(true);
+        setInterval(() => {
+          navigate("/");
+        }, 1000);
       }
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.message);
+        setStatus(false);
       }
     }
   };
@@ -44,8 +61,7 @@ function Login() {
           <p className="text-5xl font-bold">Logo Here</p>
         </div>
         <h4 className="text-4xl font-semibold my-5">Login</h4>
-    
-        <span>{msg.toLocaleUpperCase()}</span>
+        {status !== null && <AlertMessage type={status}>{msg}</AlertMessage> }
         <form onSubmit={Login} className="flex flex-col w-3/4">
           <input
             onChange={(e) => setEmail(e.target.value)}
