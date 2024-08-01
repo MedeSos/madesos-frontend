@@ -4,6 +4,7 @@ import MainDashboardBody from "./MainDashboardBody";
 import { useState } from "react";
 import { AlertMessage } from './AlertMessage';
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/user";
 
 export default function UpdateProfile() {
   return (
@@ -24,6 +25,7 @@ export function EditProfile(data) {
   const [msg,setMsg] = useState(null);
   const [status,setStatus] = useState(null);
   const navigate = useNavigate();
+  const {setUser} = useUser();
 
   async function updateUser(e){
     e.preventDefault();
@@ -42,6 +44,7 @@ export function EditProfile(data) {
         });
         setMsg(response.data.message);
         setStatus(true);
+        setUser(response.data.data);
       } catch (error) {
         setMsg(error.response.data.message);
         setStatus(false);
