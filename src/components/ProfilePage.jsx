@@ -4,6 +4,7 @@ import MainDashboardBody from "./MainDashboardBody";
 import ComponentPopup from "./ComponentPopup";
 import {EditProfile} from "./UpdateProfile";
 import axios from "axios";
+import { useUser } from "../context/user";
 
 export default function ProfilePages() {
   return (
@@ -17,31 +18,12 @@ export default function ProfilePages() {
 }
 function ProfilePage() {
   const [visiblity, setVisibility] = useState(false);
-  const [user, setUser] = useState({});
+  const user = useUser();
 
   function popupCloseHandler(e) {
     setVisibility(e);
   }
-
-  useEffect(() => {
-     refreshUser();
-  }, [user]);
   
-  async function refreshUser(){
-    try {
-      const id = localStorage.getItem("id");
-      const response = await axios.get(`/v1/api/user/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      const newuser = await response.data.data;
-      setUser(newuser);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
     <>
       {/* <!-- profile details --> */}
