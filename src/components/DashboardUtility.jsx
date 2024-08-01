@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import ComponentPopup from "./ComponentPopup";
 import MainMenu from './MainMenu';
+import { useUser } from "../context/user";
 
 export function Profile({ changes = false }) {
   const [visiblity, setVisibility] = useState(false);
+  const user = useUser();
 
   function popupCloseHandler(e) {
     setVisibility(e);
@@ -20,8 +22,8 @@ export function Profile({ changes = false }) {
           <img src="./../src/assets/icons/user.png" alt="" className="w-full h-full object-cover p-5" />
         </div>
         <div className="w-[55%] break-words">
-          <p className="text-3xl font-semibold">Your Name</p>
-          <p className="text-lg font-light">post title here</p>
+          <p className="text-3xl font-semibold">{user.name || "Your Name"}</p>
+          <p className="text-lg font-light">{user.title || "post title here"}</p>
         </div>
         <img src="./../src/assets/icons/settings.svg" alt="setting icon" className="absolute top-4 right-0 cursor-pointer" onClick={() => setVisibility(!visiblity)} />
       </div>
@@ -101,14 +103,11 @@ export function PostCount() {
 }
 
 export function ProfileDescription() {
+  const user = useUser();
   return (
     <>
       {/* <!-- profile description --> */}
-      <div className="profile-description overflow-hidden overflow-y-auto bg-secondary h-32 rounded-2xl p-4 text-base font-light">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, commodi
-        doloremque nostrum dolores expedita sed voluptatibus odit enim tenetur
-        quos?
-      </div>
+      <div className="profile-description overflow-hidden overflow-y-auto bg-secondary h-32 rounded-2xl p-4 text-base font-light">{user.description || "your description here"}</div>
       {/* <!-- profile description end  --> */}
     </>
   );
