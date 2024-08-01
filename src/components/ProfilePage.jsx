@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Profile, AddPost } from "./DashboardUtility";
 import MainDashboardBody from "./MainDashboardBody";
 import ComponentPopup from "./ComponentPopup";
 import {EditProfile} from "./UpdateProfile";
+import axios from "axios";
 
 export default function ProfilePages() {
   return (
@@ -16,10 +17,31 @@ export default function ProfilePages() {
 }
 function ProfilePage() {
   const [visiblity, setVisibility] = useState(false);
+  const [user, setUser] = useState({});
 
   function popupCloseHandler(e) {
     setVisibility(e);
   }
+
+  useEffect(() => {
+     refreshUser();
+  }, [user]);
+  
+  async function refreshUser(){
+    try {
+      const id = localStorage.getItem("id");
+      const response = await axios.get(`/v1/api/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const newuser = await response.data.data;
+      setUser(newuser);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       {/* <!-- profile details --> */}
@@ -38,23 +60,23 @@ function ProfilePage() {
           show={visiblity}
           title="Edit Profile"
         >
-          <EditProfile />
+          <EditProfile user={user}/>
         </ComponentPopup>
         <div className="relative"></div>
         <div className="container">
           <span className="flex align-baseline">
             <h4 className="mr-1 font-bold">Name:</h4>
-            <p className="">Sarah John</p>
+            <p className="">{user.name || ""}</p>
           </span>
           <hr className="border-black border-r-2 my-1" />
           <span className="flex align-baseline">
             <h4 className="mr-1 font-bold">Email:</h4>
-            <p className="">example@gmail.com</p>
+            <p className="">{user.email || ""}</p>
           </span>
           <hr className="border-black border-r-2 my-1" />
           <span className="flex align-baseline">
             <h4 className="mr-1 font-bold">Title:</h4>
-            <p className="">Front-End Developer</p>
+            <p className="">{user.title || ""}</p>
           </span>
           <hr className="border-black border-r-2 my-1" />
           <span className="flex align-baseline">
@@ -64,9 +86,7 @@ function ProfilePage() {
           <hr className="border-black border-r-2 my-1" />
           <span className="">
             <h4 className="mr-1 font-bold">Description:</h4>
-            <p className="">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti vero quia quidem cumque, facilis tenetur animi nisi sunt nobis inventore quasi alias repellat pariatur. Consequatur amet fugit beatae error in?
-            </p>
+            <p className="">{user.description || ""}</p>
           </span>
         </div>
 

@@ -61,7 +61,7 @@ function Login() {
           <p className="text-5xl font-bold">Logo Here</p>
         </div>
         <h4 className="text-4xl font-semibold my-5">Login</h4>
-        {status !== null && <AlertMessage type={status}>{msg}</AlertMessage> }
+        {status !== null && <AlertMessage type={status} style="w-3/4">{msg}</AlertMessage> }
         <form onSubmit={Login} className="flex flex-col w-3/4">
           <input
             onChange={(e) => setEmail(e.target.value)}
