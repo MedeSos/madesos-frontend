@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import ComponentPopup from "./ComponentPopup";
 import MainMenu from './MainMenu';
 import { useUser } from "../context/user";
+import axios from "axios";
+import { AlertMessage } from './AlertMessage';
 
 export function Profile({ changes = false }) {
   const [visiblity, setVisibility] = useState(false);
@@ -19,7 +21,11 @@ export function Profile({ changes = false }) {
       {/* <!-- profile --> */}
       <div className="flex flex-wrap items-center relative">
         <div className="profile-image me-7 relative group bg-neutral-300 rounded-full border-4 border-white overflow-hidden">
-          <img src="./../src/assets/icons/user.png" alt="" className="w-full h-full object-cover p-5" />
+          {user.profileImage ? (
+            <img src={user.profileImage} alt="profile image" className="w-full h-full object-cover" />
+          ):(
+            <img src="./../src/assets/icons/user.png" alt="profile image" className="w-full h-full object-cover p-5" />
+          )}
         </div>
         <div className="w-[55%] break-words">
           <p className="text-3xl font-semibold">{user.name || "Your Name"}</p>
@@ -35,21 +41,65 @@ export function Profile({ changes = false }) {
   );
 }
 export function ProfileChange() {
+  const [image, setImage] = useState(null);
+  const [msg, setMsg] = useState(null);
+  const {user, setUser} = useUser();
+  
+  useEffect(() => {
+    if(image !== null){
+      ChangeProfile();
+      setImage(null);
+    }
+    let timeOut = setTimeout(() => {
+      setMsg(null)
+    },3000);
+    return () => clearTimeout(timeOut);
+  }, [image]);
+
+  async function ChangeProfile(){
+    const formData = new FormData();
+    const id = localStorage.getItem("id");
+    try{
+      if(image!==null){
+        formData.append("profile-image", image);
+        const response = await axios.patch(`/v1/api/user/${id}`, formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+        const result = await response.data.data;
+        setUser(result);
+        setMsg({message:response.data.message, status: true});
+      }
+    }catch(error){
+      setMsg({message:error.response.data.message,status: false});
+    }
+  }
+
   return (
     <>
       {/* <!-- profile --> */}
       <div className="flex flex-wrap items-center">
         <div className="profile-image me-7 relative group bg-neutral-300 rounded-full border-4 border-white overflow-hidden">
+          {user.profileImage ? (
+            <img src={user.profileImage} alt="profile image" className="w-full h-full object-cover" />
+            ) : (
+            <img src="./../src/assets/icons/user.png" alt="profile image" className="w-full h-full object-cover p-10" />
+            )
+          }
           {/* <!-- if image not exist --> */}
-          <img src="./../src/assets/icons/images.svg" alt="" className="w-full h-full object-cover p-10" />
+          {/* <img src={showImage} alt="" className="w-full h-full object-cover p-10" /> */}
           {/* <!-- if image exist --> */}
           {/* <!-- <img src="./../asset/icons/yourprofile.png" alt="" class="w-full h-full object-cover"> --> */}
-          <input type="file" id="profileImage" className="hidden" />
+          <input type="file" id="profileImage" className="hidden" accept="image/*" onChange={(e) => setImage(e.target.files[0])}/>
           <label htmlFor="profileImage" className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center group-hover:bg-black group-hover:bg-opacity-50 h-full w-full hover:cursor-pointer">
             <p className="hidden group-hover:block group-hover:text-white">Change</p>
           </label>
         </div>
       </div>
+      {msg !== null && <AlertMessage type={msg.status} style="mt-2">{msg.message}</AlertMessage>}
       <NavLink to="/" className="mt-3 underline block font-bold text-xl">
         Back To Dashboard
       </NavLink>
@@ -59,18 +109,63 @@ export function ProfileChange() {
 }
 
 export function HeaderChange({ changes = false }) {
+  const { user, setUser } = useUser();
+  const [image, setImage] = useState(null);
+  const [msg, setMsg] = useState(null);
+
+  useEffect(() => {
+    if (image !== null) {
+      ChangeBanner();
+      setImage(null);
+    }
+  }, [image]);
+
+  async function ChangeBanner() {
+    const formData = new FormData();
+    const id = localStorage.getItem("id");
+    try {
+      if (image !== null) {
+        formData.append("background-image", image);
+        const response = await axios.patch(`/v1/api/user/${id}`, formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+        const result = await response.data.data;
+        setUser(result);
+        setMsg({ message: response.data.message, status: true });
+        setTimeout(()=>setMsg(null),3000);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   if (!changes) {
-    return <header className="profile-header bg-neutral-300"></header>;
+    return (
+      <>
+        <header className="profile-header bg-neutral-300">
+          {user.backgroundImage && (
+            <img src={user.backgroundImage} alt="header image" className="w-full h-full object-cover" />
+          )}
+        </header>
+      </>
+    );
   }
   return (
     <>
       <header className="profile-header bg-neutral-300 relative group">
         {/* <!-- if image not exist --> */}
-        <img src="./../src/assets/icons/images.svg" alt="" className="w-full h-full p-10" />
+        {user.backgroundImage ? (
+            <img src={user.backgroundImage} alt="header image" className="w-full h-full object-cover" />
+          ):(
+            <img src="./../src/assets/icons/images.svg" alt="header image" className="w-full h-full p-10" />
+          )}
         {/* <!-- if image exist --> */}
         {/* <img src="./../asset/icons/yourbanner.png" alt="" className="w-full h-full object-cover" /> */}
 
-        <input type="file" id="bannerImage" className="hidden" />
+        <input type="file" id="bannerImage" className="hidden" onChange={(e) => setImage(e.target.files[0])}/>
         <label htmlFor="bannerImage" className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center group-hover:bg-black group-hover:bg-opacity-50 h-full w-full  hover:cursor-pointer">
           <p className="hidden group-hover:block group-hover:text-white">Change</p>
         </label>
