@@ -6,7 +6,7 @@ import { useUser } from "../context/user";
 
 export function Profile({ changes = false }) {
   const [visiblity, setVisibility] = useState(false);
-  const user = useUser();
+  const {user} = useUser();
 
   function popupCloseHandler(e) {
     setVisibility(e);
@@ -103,7 +103,7 @@ export function PostCount() {
 }
 
 export function ProfileDescription() {
-  const user = useUser();
+  const {user} = useUser();
   return (
     <>
       {/* <!-- profile description --> */}

@@ -18,7 +18,7 @@ export default function ProfilePages() {
 }
 function ProfilePage() {
   const [visiblity, setVisibility] = useState(false);
-  const user = useUser();
+  const {user} = useUser();
 
   function popupCloseHandler(e) {
     setVisibility(e);

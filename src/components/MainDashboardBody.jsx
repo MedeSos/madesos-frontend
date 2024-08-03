@@ -2,14 +2,14 @@ import { HeaderChange } from "./DashboardUtility";
 import { ContentBody, MainContent, BoxContainer } from "./Frame";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import UserContext from "../context/user";
+import { UserProvider } from './../context/user';
 
 export default function MainDashboardBody({ children, headerStatus = false, footer = null }) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
     refreshUser();
-  }, [user]);
+  }, []);
 
   async function refreshUser() {
     try {
@@ -27,11 +27,11 @@ export default function MainDashboardBody({ children, headerStatus = false, foot
   }
   return (
     <>
-      <UserContext.Provider value={user}>
+      <UserProvider user={user} setUser={setUser}>
         <BoxContainer>
           <ContentBody header={<HeaderChange changes={headerStatus} />} main={<MainContent>{children}</MainContent>} footer={footer} />
         </BoxContainer>
-      </UserContext.Provider>
+      </UserProvider>
     </>
   );
 }
