@@ -18,9 +18,7 @@ export default function LoginPage() {
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPasssword] = useState("");
-  const [msg, setMsg] = useState("");
-  const [status, setStatus] = useState(null);
-  const navigate = useNavigate();
+  const [msg, setMsg] = useState(null);
 
   const Login = async (e) => {
     e.preventDefault();
@@ -32,8 +30,8 @@ function Login() {
       if (response.status >= 200 && response.status < 300) {
         let token = null;
         if(!response.data.data.token){
-          setMsg("Invalid Credentials");
-          setStatus(false);
+          setMsg({message: "Invalid Credentials", status: false});
+          setTimeout(() => setMsg(null), 3000);
           return
         }
         token = response.data.data.token;
@@ -41,16 +39,16 @@ function Login() {
         localStorage.setItem("token", token);
         localStorage.setItem("exp",result.exp);
         localStorage.setItem("id",result.id);
-        setMsg("Login Successfull");
-        setStatus(true);
-        setInterval(() => {
+        setMsg({message: "Login Successfull", status: true});
+        setTimeout(() => {
+          setMsg(null)
           window.location.reload();
         }, 1000);
       }
     } catch (error) {
       if (error.response) {
-        setMsg(error.response.data.message);
-        setStatus(false);
+        setMsg({message: error.response.data.message, status: false});
+        setTimeout(() => setMsg(null), 3000);
       }
     }
   };
@@ -61,7 +59,7 @@ function Login() {
           <p className="text-5xl font-bold">Logo Here</p>
         </div>
         <h4 className="text-4xl font-semibold my-5">Login</h4>
-        {status !== null && <AlertMessage type={status} style="w-3/4">{msg}</AlertMessage> }
+        {msg !== null && <AlertMessage type={msg.status} style="w-3/4">{msg.message}</AlertMessage> }
         <form onSubmit={Login} className="flex flex-col w-3/4">
           <input
             onChange={(e) => setEmail(e.target.value)}

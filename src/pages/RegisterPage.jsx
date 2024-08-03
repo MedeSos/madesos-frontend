@@ -17,8 +17,7 @@ export default function RegisterPage() {
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState("");
-  const [status, setStatus] = useState(null);
+  const [msg, setMsg] = useState(null);
   const navigate = useNavigate();
 
   const SignUp = async (e) => {
@@ -29,12 +28,16 @@ function Register() {
         { email, password, }
       );
       if (response.status >= 200 && response.status < 300) {
-        navigate("/login");
+        setMsg({message: "Register Success",status:1000});
+        setTimeout(()=>{
+          setMsg(null);
+          navigate("/login");
+        },1000);
       }
     } catch (error) {
       if (error.response) {
-        setMsg(error.response.data.message);
-        setStatus(false);
+        setMsg({ message: error.response.data.message, status: false });
+        setTimeout(() => setMsg(null), 3000);
       }
     }
   };
@@ -46,7 +49,7 @@ function Register() {
           <p className="text-5xl font-bold">Logo Here</p>
         </div>
         <h4 className="text-4xl font-semibold my-5">Sign Up</h4>
-        {status !== null && <AlertMessage type={status}>{msg}</AlertMessage>}
+        {msg !== null && <AlertMessage type={msg.status} style="w-3/4">{msg.message}</AlertMessage>}
         <form onSubmit={SignUp} className="flex flex-col w-3/4">
           <input
             required

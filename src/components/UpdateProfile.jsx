@@ -23,7 +23,6 @@ export function EditProfile(data) {
   const [description, setDescription] = useState(data.user.description || "");
   const [password, setPassword] = useState(null);
   const [msg,setMsg] = useState(null);
-  const [status,setStatus] = useState(null);
   const navigate = useNavigate();
   const {setUser} = useUser();
 
@@ -42,19 +41,18 @@ export function EditProfile(data) {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        setMsg(response.data.message);
-        setStatus(true);
+        setMsg({message: response.data.message, status: true});
         setUser(response.data.data);
+        setTimeout(() => setMsg(null), 3000);
       } catch (error) {
-        setMsg(error.response.data.message);
-        setStatus(false);
-      console.log(error);
+        setMsg({message: error.response.data.message, status: false});
+        setTimeout(() => setMsg(null), 3000);
     }
   }
   return (
     <>
       {/* <!-- post upload box --> */}
-        {msg !== null && <AlertMessage type={status} >{msg}</AlertMessage>}
+        {msg !== null && <AlertMessage type={msg.status} >{msg.message}</AlertMessage>}
       <div className="p-4 bg-secondary mt-5 rounded-xl">
         <h4 className="text-2xl font-semibold my-3 mb-5 tracking-widest">Edit Profile</h4>
         <form onSubmit={updateUser}>
