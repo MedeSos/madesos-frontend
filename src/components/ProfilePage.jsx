@@ -50,22 +50,17 @@ function ProfilePage() {
             <h4 className="mr-1 font-bold">Name:</h4>
             <p className="">{user.name || ""}</p>
           </span>
-          <hr className="border-black border-r-2 my-1" />
+          <hr className="border-black border-r-2 my-3" />
           <span className="flex align-baseline">
             <h4 className="mr-1 font-bold">Email:</h4>
             <p className="">{user.email || ""}</p>
           </span>
-          <hr className="border-black border-r-2 my-1" />
+          <hr className="border-black border-r-2 my-3" />
           <span className="flex align-baseline">
             <h4 className="mr-1 font-bold">Title:</h4>
             <p className="">{user.title || ""}</p>
           </span>
-          <hr className="border-black border-r-2 my-1" />
-          <span className="flex align-baseline">
-            <h4 className="mr-1 font-bold">Status:</h4>
-            <p className="">Single</p>
-          </span>
-          <hr className="border-black border-r-2 my-1" />
+          <hr className="border-black border-r-2 my-3" />
           <span className="">
             <h4 className="mr-1 font-bold">Description:</h4>
             <p className="">{user.description || ""}</p>
