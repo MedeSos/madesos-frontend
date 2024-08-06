@@ -71,24 +71,6 @@ function ProfilePage() {
             <p className="">{user.description || ""}</p>
           </span>
         </div>
-
-        <div className="mt-5">
-          <h3>Create Status</h3>
-          <form className="flex flex-col">
-            <div className="flex flex-col">
-              <input
-                type="text"
-                id="name"
-                className="flex-grow px-4 py-5 border rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="What's on your mind?"
-              />
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-r py-2 w-16 mt-2"
-              >Post</button>
-            </div>
-          </form>
-        </div>
       </div>
       {/* <!-- profile details end --> */}
     </>

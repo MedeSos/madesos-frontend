@@ -25,6 +25,15 @@ export function EditProfile(data) {
   const [msg,setMsg] = useState(null);
   const navigate = useNavigate();
   const {setUser} = useUser();
+  const [pass, setPass] = useState({ type: "password", icon: "./../src/assets/icons/eye-close.svg",status:false });
+
+  function handleShowPassword(){
+    if(pass.status){
+      setPass({ type: "password", icon: "./../src/assets/icons/eye-close.svg",status:false });
+    }else{
+      setPass({ type: "text", icon: "./../src/assets/icons/eye-open.svg",status:true });
+    }
+  }
 
   async function updateUser(e){
     e.preventDefault();
@@ -49,6 +58,7 @@ export function EditProfile(data) {
         setTimeout(() => setMsg(null), 3000);
     }
   }
+
   return (
     <>
       {/* <!-- post upload box --> */}
@@ -63,8 +73,8 @@ export function EditProfile(data) {
           <h4 className="text-2xl font-semibold mt-1 mb-3 tracking-widest">Edit Account</h4>
           <input type="email" placeholder="Your E-Mail" className="w-full  rounded p-4 mb-4 placeholder:font-extralight text-lg" value={user.email || ""}/>
           <div className="password relative">
-            <input type="password" placeholder="Password" className="w-full  rounded p-4 mb-4 placeholder:font-extralight text-lg" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            <img src="./../src/assets/icons/eye-close.svg" alt="eye close icon" className="absolute right-3 top-1/4 -translate-y-1/2 cursor-pointer" />
+            <input type={pass.type} placeholder="Password" className="w-full  rounded p-4 mb-4 placeholder:font-extralight text-lg" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <img src={pass.icon} alt="eye icon" className="absolute right-3 top-8 -translate-y-1/2 cursor-pointer" onClick={handleShowPassword}/>
           </div>
 
           <div className=" mt-4 text-2xl ">
