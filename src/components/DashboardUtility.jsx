@@ -174,21 +174,22 @@ export function HeaderChange({ changes = false }) {
   );
 }
 
-export function PostCount() {
+export function PostCount(blogCount) {
+  const count = blogCount.count;
   return (
     <>
       {/* <!-- post count --> */}
       <div className="flex flex-row justify-around my-5 w-full bg-secondary rounded-full">
         <div className="text-center p-2">
-          <p className="text-2xl font-semibold">205</p>
+          <p className="text-2xl font-semibold">{count.image}</p>
           <p className="text-xl font-light -m-2 tracking-widest">image</p>
         </div>
         <div className="text-center  p-2">
-          <p className="text-2xl font-semibold">205</p>
+          <p className="text-2xl font-semibold">{count.video}</p>
           <p className="text-xl font-light -m-2 tracking-widest">video</p>
         </div>
         <div className="text-center  p-2">
-          <p className="text-2xl font-semibold">205</p>
+          <p className="text-2xl font-semibold">{count.post}</p>
           <p className="text-xl font-light -m-2 tracking-widest">blog</p>
         </div>
       </div>
