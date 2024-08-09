@@ -25,13 +25,13 @@ export function EditProfile(data) {
   const [msg,setMsg] = useState(null);
   const navigate = useNavigate();
   const {setUser} = useUser();
-  const [pass, setPass] = useState({ type: "password", icon: "./../src/assets/icons/eye-close.svg",status:false });
+  const [pass, setPass] = useState({ type: "password", icon: "/assets/icons/eye-close.svg",status:false });
 
   function handleShowPassword(){
     if(pass.status){
-      setPass({ type: "password", icon: "./../src/assets/icons/eye-close.svg",status:false });
+      setPass({ type: "password", icon: "/assets/icons/eye-close.svg",status:false });
     }else{
-      setPass({ type: "text", icon: "./../src/assets/icons/eye-open.svg",status:true });
+      setPass({ type: "text", icon: "/assets/icons/eye-open.svg",status:true });
     }
   }
 

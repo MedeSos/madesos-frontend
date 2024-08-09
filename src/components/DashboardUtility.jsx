@@ -24,14 +24,14 @@ export function Profile({ changes = false }) {
           {user.profileImage ? (
             <img src={user.profileImage} alt="profile image" className="w-full h-full object-cover" />
           ):(
-            <img src="./../src/assets/icons/user.png" alt="profile image" className="w-full h-full object-cover p-5" />
+            <img src="/assets/icons/user.png" alt="profile image" className="w-full h-full object-cover p-5" />
           )}
         </div>
         <div className="w-[55%] break-words">
           <p className="text-3xl font-semibold">{user.name || "Your Name"}</p>
           <p className="text-lg font-light">{user.title || "post title here"}</p>
         </div>
-        <img src="./../src/assets/icons/settings.svg" alt="setting icon" className="absolute top-4 right-0 cursor-pointer" onClick={() => setVisibility(!visiblity)} />
+        <img src="/assets/icons/settings.svg" alt="setting icon" className="absolute top-4 right-0 cursor-pointer" onClick={() => setVisibility(!visiblity)} />
       </div>
       <ComponentPopup onClose={popupCloseHandler} show={visiblity} title="Menu">
         <MainMenu/>
@@ -86,7 +86,7 @@ export function ProfileChange() {
           {user.profileImage ? (
             <img src={user.profileImage} alt="profile image" className="w-full h-full object-cover" />
             ) : (
-            <img src="./../src/assets/icons/user.png" alt="profile image" className="w-full h-full object-cover p-10" />
+            <img src="/assets/icons/user.png" alt="profile image" className="w-full h-full object-cover p-10" />
             )
           }
           {/* <!-- if image not exist --> */}
@@ -139,7 +139,7 @@ export function HeaderChange({ changes = false }) {
         setTimeout(()=>setMsg(null),3000);
       }
     } catch (error) {
-      console.log(error)
+      throw new Error(error);
     }
   }
   if (!changes) {
@@ -160,7 +160,7 @@ export function HeaderChange({ changes = false }) {
         {user.backgroundImage ? (
             <img src={user.backgroundImage} alt="header image" className="w-full h-full object-cover" />
           ):(
-            <img src="./../src/assets/icons/images.svg" alt="header image" className="w-full h-full p-10" />
+            <img src="/assets/icons/images.svg" alt="header image" className="w-full h-full p-10" />
           )}
         {/* <!-- if image exist --> */}
         {/* <img src="./../asset/icons/yourbanner.png" alt="" className="w-full h-full object-cover" /> */}
@@ -223,7 +223,7 @@ export function PostCategory({ setCategory, Category }) {
       {/* <!-- post category --> */}
       <div className="flex flex-row my-5 bg-secondary w-2/3 mx-auto rounded-full items-center justify-between">
         <img
-          src="./../src/assets/icons/image.svg"
+          src="/assets/icons/image.svg"
           alt="image icon"
           className={`post-icon cursor-pointer py-2 ${
             defaultCategory === "image" ? "post-category-active" : "px-7"
@@ -232,7 +232,7 @@ export function PostCategory({ setCategory, Category }) {
           title="image"
         />
         <img
-          src="./../src/assets/icons/video.svg"
+          src="/assets/icons/video.svg"
           alt="video icon"
           className={`post-icon cursor-pointer py-2  ${
             defaultCategory === "video" ? "post-category-active" : "px-7"
@@ -241,7 +241,7 @@ export function PostCategory({ setCategory, Category }) {
           title="video"
         />
         <img
-          src="./../src/assets/icons/blog.svg"
+          src="/assets/icons/blog.svg"
           alt="blog icon"
           className={`post-icon cursor-pointer py-2  ${
             defaultCategory === "blog" ? "post-category-active" : "px-7"
@@ -262,7 +262,7 @@ export function AddPost() {
       <div className="bg-secondary text-white px-2 py-4 rounded-full mt-4 absolute right-1 bottom-0 left-1 z-20 text-center h-[92px] flex justify-center items-center">
         <Link to="/update">
           <img
-            src="./../src/assets/icons/plus.svg"
+            src="/assets/icons/plus.svg"
             alt="plus button"
             className="w-12"
           />

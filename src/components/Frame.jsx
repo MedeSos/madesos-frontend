@@ -1,9 +1,9 @@
 export function MainFrame({ children }) {
   return (
     <div className="box-container">
-      <img src="./../src/assets/icons/waves-header.svg" alt="wave header" className="w-full" />
+      <img src="/assets/icons/waves-header.svg" alt="wave header" className="w-full" />
       {children}
-      <img src="./../src/assets/icons/waves-bottom.svg" alt="wave bottom" className="w-full" />
+      <img src="/assets/icons/waves-bottom.svg" alt="wave bottom" className="w-full" />
       {/* <!-- blue waves end --> */}
     </div>
   );

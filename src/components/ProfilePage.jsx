@@ -34,7 +34,7 @@ function ProfilePage() {
             className="ml-[180px] cursor-pointer"
             onClick={() => setVisibility(!visiblity)}
           >
-            <img src="src/assets/icons/EditDetailsProfile.svg" alt="" />
+            <img src="/assets/icons/EditDetailsProfile.svg" alt="edit icon" />
           </span>
         </h4>
         <ComponentPopup

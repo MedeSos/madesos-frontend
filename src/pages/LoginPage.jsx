@@ -55,10 +55,12 @@ function Login() {
   return (
     <>
       <div className="content">
-        <div className="logo">
-          <p className="text-5xl font-bold">Logo Here</p>
+        <div className="logo mx-16">
+          <p className="text-5xl font-bold">
+            <img src="/sosial-vibe.svg" alt="sosial vibe logo" className="w-full"/>
+          </p>
         </div>
-        <h4 className="text-4xl font-semibold my-5">Login</h4>
+        <h4 className="text-2xl font-semibold my-5">Login</h4>
         {msg !== null && <AlertMessage type={msg.status} style="w-3/4">{msg.message}</AlertMessage> }
         <form onSubmit={Login} className="flex flex-col w-3/4">
           <input
@@ -110,7 +112,7 @@ function Login() {
         </div>
         {/* <!-- blue waves start  --> */}
         <img
-          src="./../src/assets/icons/waves-top.svg"
+          src="/assets/icons/waves-top.svg"
           alt="wave top"
           className="w-full mt-5"
         />
