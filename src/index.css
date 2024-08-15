@@ -11,14 +11,7 @@
 
 @layer components {
   .box-container {
-    width: 533px;
-    height: 1018px;
-    background-color: #feeed9;
-    padding: 10px 5px;
-    margin: 40px auto;
-    border-radius: 50px;
-    padding-top: 0px;
-    overflow: hidden;
+    @apply bg-[#feeed9] sm:w-full md:w-[533px] h-screen md:h-[1018px]  px-[5px] py-[10px] sm:m-0 md:my-[10px] md:mx-auto md:rounded-[50px] pt-[0] overflow-x-hidden sm:overflow-y-auto;
   }
 
   .content {
